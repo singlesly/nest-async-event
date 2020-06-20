@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ -z "$TRAVIS_TAG"];
+if [ -z "$TRAVIS_TAG" ];
 then
   echo 'Not tag just build'
   npm run build
@@ -10,3 +10,4 @@ else
   echo "Setting version to ${PACKAGE_VERSION}"
   npm version ${PACKAGE_VERSION}
   npm publish
+fi
