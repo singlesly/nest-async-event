@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "$TRAVIS_TAG"
+echo "Version tag: $TRAVIS_TAG"
 
 if [ -z "$TRAVIS_TAG" ];
 then
