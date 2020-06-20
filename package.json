@@ -15,6 +15,7 @@
     "test:cov": "jest --coverage"
   },
   "dependencies": {
+    "@nestjs-plus/discovery": "^2.0.2",
     "@nestjs/common": "^7.0.0",
     "@nestjs/core": "^7.0.0",
     "reflect-metadata": "^0.1.13",
@@ -47,7 +48,7 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": ".",
     "testRegex": ".spec.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"

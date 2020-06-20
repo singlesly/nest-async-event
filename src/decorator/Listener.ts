@@ -4,9 +4,11 @@
  * @function Listener
  */
 import { LISTENER } from "../constant/constant";
+import "reflect-metadata";
 
 export function Listener(name: string): ClassDecorator {
     return function (target) {
-        Reflect.defineMetadata(target, LISTENER, name);
+        Reflect.defineMetadata(LISTENER, name, target.prototype);
+        Reflect.defineMetadata(LISTENER, name, target);
     }
 }
