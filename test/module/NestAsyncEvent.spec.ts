@@ -42,7 +42,7 @@ describe("NestAsyncEvent test", () => {
 
         const ee = moduleFixture.get(EVENT_EMITTER_INTERFACE);
 
-        await ee.emit({name: "test"});
+        await ee.emit({name: "test", same: "fuck you"});
 
         done();
     });
