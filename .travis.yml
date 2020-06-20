@@ -3,4 +3,5 @@ node_js:
   - 14
 script:
   - npm run test
-  - npm run build
+  - chmod a+x ./publish-npm.sh
+  - ./publish-npm.sh
