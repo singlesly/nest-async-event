@@ -3,7 +3,6 @@ node_js:
 - 14
 script:
 - npm run test
-- chmod a+x ./publish-npm.sh
 - npm run build
 
 before_deploy:
