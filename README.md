@@ -83,3 +83,34 @@ export class UserService {
 
 }
 ```
+
+## In depth
+
+* async works
+```typescript    
+// should be wait a listeners of created users event
+// you can use it for mutate user object before other operations
+await this.emitter.emit(new UserCreatedEvent(user))
+```
+
+```typescript
+// no wait listeners. Listeners will be add in event loop
+this.emitter.emit(new UserCreatedEvent(user))
+```
+
+* override event emitter
+```typescript
+import { EventEmitterInterface } from "nest-async-event"; 
+import { NestAsyncEventModule } from "nest-async-event";
+
+export class MyEventEmitter implements EventEmitterInterface {
+    // your implementation
+}
+
+@Module({
+    imports: [
+        NestAsyncEventModule.register(new MyEventEmitter())
+    ]
+})
+export class AppModule {}
+```
