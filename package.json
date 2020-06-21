@@ -5,6 +5,9 @@
   "author": "",
   "private": false,
   "license": "UNLICENSED",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
