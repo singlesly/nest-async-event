@@ -4,7 +4,7 @@ node_js:
 script:
 - npm run test
 - chmod a+x ./publish-npm.sh
-- "./publish-npm.sh"
+- npm run build
 deploy:
   provider: npm
   email: "$NPM_AUTH_EMAIL"
