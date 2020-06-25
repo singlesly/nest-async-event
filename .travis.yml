@@ -6,6 +6,7 @@ script:
 - npm run build
 
 before_deploy:
+  - npm ci
   - npm run test
   - npm run build
 deploy:
