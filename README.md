@@ -56,7 +56,7 @@ export class UserCreatedEvent implements EventInterface {
     public readonly name: string = "user.created";
     
     constructor(
-        private readonly target: User
+        public readonly target: User
     ) {}
 }
 ```
