@@ -8,8 +8,9 @@ import { HashMap } from "./HashMap";
 import { EventInterface } from "./EventInterface";
 import { LISTENER } from "./constant/constant";
 import 'reflect-metadata';
+import { EventEmitterInterface } from "./EventEmitterInterface";
 
-export class EventEmitter {
+export class EventEmitter implements EventEmitterInterface {
 
     private readonly listeners: HashMap<ListenerInterface> = new HashMap<ListenerInterface>();
 
@@ -18,11 +19,11 @@ export class EventEmitter {
     }
 
     public addListener(listener: ListenerInterface): void {
-        const event = Reflect.getMetadata(LISTENER, listener);
-        if(!event) {
-            throw new Error("Please specify event of listener");
+        const events = Reflect.getMetadata(LISTENER, listener);
+        if(!Array.isArray(events) || !events.length) {
+            throw new Error("Specify event of listener");
         }
-        this.listeners.add(event, listener);
+        events.forEach(event => this.listeners.add(event, listener));
     }
 
     public async emit(event: EventInterface): Promise<void> {

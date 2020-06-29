@@ -28,6 +28,14 @@ describe("NestAsyncEvent test", () => {
             }
         }
 
+        @Listener('test', 'same')
+        class TestArrayEvents implements ListenerInterface {
+            public count = 0;
+            public async listen(event: EventInterface): Promise<void> {
+                this.count++;
+            }
+        }
+
         const moduleFixture = await Test.createTestingModule({
             imports: [
                 await NestAsyncEventModule.register(new EventEmitter())
@@ -35,6 +43,7 @@ describe("NestAsyncEvent test", () => {
             providers: [
                 TestTwoListener,
                 TestListener,
+                TestArrayEvents
             ]
         }).compile();
 
@@ -43,7 +52,9 @@ describe("NestAsyncEvent test", () => {
         const ee = moduleFixture.get(EVENT_EMITTER_INTERFACE);
 
         await ee.emit({name: "test", same: "fuck you"});
+        await ee.emit({name: "same", same: "rich"});
 
+        expect(moduleFixture.get(TestArrayEvents).count).toBe(2);
         done();
     });
 });
