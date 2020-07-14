@@ -8,6 +8,7 @@ before_deploy:
   - npm run build
   - ls -l
   - ls -l ./dist
+  - git add -f dist
 deploy:
   provider: npm
   email: "$NPM_AUTH_EMAIL"
@@ -16,3 +17,5 @@ deploy:
   on:
     tags: true
     branch: master
+after_deploy:
+  - git rm --cached -f dist
