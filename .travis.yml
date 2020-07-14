@@ -9,6 +9,8 @@ before_deploy:
   - npm ci
   - npm run test
   - npm run build
+  - ls -l
+  - ls -l ./dist
 deploy:
   provider: npm
   email: "$NPM_AUTH_EMAIL"
