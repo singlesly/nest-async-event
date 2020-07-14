@@ -19,4 +19,4 @@ deploy:
     tags: true
     branch: master
 after_deploy:
-  - git rm --cached -f dist
+  - git rm --cached -r dist
