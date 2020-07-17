@@ -9,6 +9,8 @@ import { Listener } from "../../src/decorator/Listener";
 import { EventInterface } from "../../src/EventInterface";
 import { EVENT_EMITTER_INTERFACE } from "../../src/constant/constant";
 import { EventEmitter } from "../../src/EventEmitter";
+import { Module } from "@nestjs/common";
+import { EventEmitterInterface, InjectEventEmitter } from "../../src";
 
 describe("NestAsyncEvent test", () => {
     it("test", async (done) => {
@@ -56,5 +58,44 @@ describe("NestAsyncEvent test", () => {
 
         expect(moduleFixture.get(TestArrayEvents).count).toBe(2);
         done();
+    });
+
+    it("should be call with child modules", async (done) => {
+
+        class Provider {
+            constructor(
+                @InjectEventEmitter() private readonly ee: EventEmitterInterface
+            ) {}
+        }
+
+        @Module({
+            providers: [
+                Provider
+            ]
+        })
+        class Child {}
+
+        @Listener('test.event')
+        class RL implements ListenerInterface {
+            public async listen(event: EventInterface): Promise<void> {
+                expect(event.name).toBe('test.event');
+            }
+
+        }
+
+        const fixture = (await Test.createTestingModule({
+            imports: [
+                NestAsyncEventModule.forRoot(),
+                Child
+            ],
+        }).compile());
+
+        await fixture.init();
+
+        const ee: EventEmitterInterface = fixture.get(EVENT_EMITTER_INTERFACE);
+
+        await ee.emit({name: 'test.event'});
+        done();
+
     });
 });

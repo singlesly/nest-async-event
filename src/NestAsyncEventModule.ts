@@ -43,6 +43,12 @@ export class NestAsyncEventModule implements OnModuleInit {
     }
 
 
+    public static forRoot(eventEmitter: EventEmitterInterface = new EventEmitter()): DynamicModule {
+        return {
+            ...NestAsyncEventModule.register(new EventEmitter()),
+            global: true,
+        };
+    }
 
     public static register(eventEmitter: EventEmitterInterface = new EventEmitter()): DynamicModule {
         return {
